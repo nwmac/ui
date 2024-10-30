@@ -132,7 +132,6 @@ Router.map(function() {
       this.mount('logging', { path: '/logging' });
       this.mount('alert', { path: '/alerts' });
 
-      this.mount('pipeline');
       this.mount('monitoring');
 
       // Workload

@@ -102,14 +102,6 @@ const rootNav = [
         resource:       ['catalog', 'project-catalog'],
         resourceScope:  'global',
       },
-      {
-        id:             'tools-pipeline',
-        localizedLabel: 'nav.tools.pipeline',
-        route:          'authenticated.project.pipeline.settings',
-        resource:       ['sourcecodeproviderconfig'],
-        resourceScope:  'project',
-        ctx:            [getProjectId],
-      },
     ]
   },
   // Cluster

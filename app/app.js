@@ -181,43 +181,6 @@ export default class App extends Application {
         }
       }
     },
-    pipeline: {
-      dependencies: {
-        services: [
-          'app',
-          'clusterStore',
-          'features',
-          'globalStore',
-          'intl',
-          'modal',
-          'resource-actions',
-          'scope',
-          'session',
-          'store',
-          'tooltip',
-          'router',
-        ],
-        externalRoutes: {
-          'authenticated.cluster':                    'authenticated.cluster',
-          'authenticated.cluster.index':              'authenticated.cluster.index',
-          'authenticated.cluster.projects':           'authenticated.cluster.projects',
-          'authenticated.prefs':                      'authenticated.prefs',
-          'authenticated.project':                    'authenticated.project',
-          'authenticated.project.dns.index':          'authenticated.project.dns.index',
-          'authenticated.project.hpa.index':          'authenticated.project.hpa.index',
-          'authenticated.project.pipeline.pipeline':  'authenticated.project.pipeline.pipeline',
-          'authenticated.project.pipeline.pipelines': 'authenticated.project.pipeline.pipelines',
-          'containers.index':                         'containers.index',
-          'ingresses.index':                          'ingresses.index',
-          'logout':                                   'logout',
-          'notifier':                                 'authenticated.cluster.notifier',
-          'volumes.index':                            'volumes.index',
-          authenticated:                              'authenticated',
-          failWhale:                                  'failWhale',
-          index:                                      'index',
-        }
-      }
-    },
     monitoring: {
       dependencies: {
         services: [

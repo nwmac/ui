@@ -134,7 +134,6 @@
       "lib/logging",
       "lib/login",
       "lib/nodes",
-      "lib/pipeline",
       "lib/monitoring",
       "lib/shared"
     ]
