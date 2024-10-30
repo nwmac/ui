@@ -62,7 +62,6 @@ generic:
   import: Importieren
   internal: Intern
   ipAddress: IP Addresse
-  istioRule: Verkehrsregel
   key: Schlüssel
   limit: Grenze
   limits: Limitierungen
@@ -136,7 +135,6 @@ generic:
   linux: Linux
   windows: Windows
   host: Server
-  istioHostPlaceholder: Wählen Sie einen Host aus oder geben Sie ihn ein
   cpu: CPU
   memory: Arbeitsspeicher
   noData: Keine Daten
@@ -781,8 +779,6 @@ balancerPage:
   table:
     target: Ziel
 catalogPage:
-  istio:
-    header: Straßenverkehrsordnung
   index:
     header: Katalog
     refreshBtn: Aktualisieren
@@ -849,40 +845,6 @@ cloudCredentialsPage:
       noMatch: Keine Ereignisse gefunden, die den Suchkriterien entsprechen
 clusterCatalogPage:
   header: Kataloge
-clusterIstioPage:
-  header: Istio
-  disable: Deaktivieren
-  enableActionLabel: Aktivieren
-  version: Istio Version
-  customAnswers:
-    title: Benutzerdefinierte Antworten
-  links:
-    kiali:
-      label: Kiali UI
-    jaeger:
-      label: Jaeger UI
-    grafana:
-      label: Grafana UI
-    prometheus:
-      label: Prometheus UI
-  config:
-    header:
-      grafana: Grafana
-      prometheus: Prometheus
-    http2Port:
-      label: Http2-Port
-    httpsPort:
-      label: Https-Port
-    loadBalancerIP:
-      placeholder: z.B. 192.0.0.1
-    prometheusRetention:
-      placeholder: z.B. 6h
-    traceSampling:
-      placeholder: z.B. 1
-  nodeSelector:
-    addSelectorLabel: Selektor hinzufügen
-  enableMonitoring:
-    label: Überwachung aktivieren
 certificatesPage:
   cn: Domainname
   expiresDate: Ablaufdatum
@@ -1181,9 +1143,6 @@ metrics:
   container-cpu-usage: CPU Auslastung
   container-disk-io: Disk I/O
   container-memory-usage-bytes-sum: Speicherauslastung
-  istio-global-request-volume-top10: Volumen nach Service anfordern
-  istio-global-request-volume: Projektanforderungsvolumen
-  istio-global-success-rate: Projekterfolgsrate
   node-cpu-load: Durchschnittslast
   node-cpu-usage: CPU Auslastung
   node-fs-usage-percent: Disk Auslastung
@@ -1749,9 +1708,6 @@ hostsPage:
           mounts: Einhängepunkte
         body:
           noData: Dieser Host hat noch keine Volumes.
-istio:
-  table:
-    host: Host
 k8sImport:
   header: Importieren Sie existierende Kubernetes
   name:

@@ -238,25 +238,6 @@ export default class App extends Application {
         externalRoutes: {}
       }
     },
-    istio: {
-      dependencies: {
-        services: [
-          'app',
-          'catalog',
-          'clusterStore',
-          'features',
-          'globalStore',
-          'intl',
-          'modal',
-          'router',
-          'scope',
-          'session',
-          'store',
-          'tooltip',
-        ],
-        externalRoutes: { 'authenticated.cluster.istio.cluster-setting': 'authenticated.cluster.istio.cluster-setting', }
-      }
-    },
   };
 }
 

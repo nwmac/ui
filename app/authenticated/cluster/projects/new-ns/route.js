@@ -37,7 +37,6 @@ export default Route.extend({
     if ( isExiting ) {
       setProperties(controller, {
         errors:         null,
-        istioInjection: false
       });
     }
   },

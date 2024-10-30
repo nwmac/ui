@@ -213,13 +213,13 @@
     <div class="row">
       <div class="col span-12">
         <label class="acc-label">
-          {{t "clusterIstioPage.nodeSelector.helpText" component="Registry"}}
+          {{t "clusterPage.nodeSelector.helpText" component="Registry"}}
         </label>
         {{form-key-value
           changedArray=(action (mut registryNodeSelectors))
           initialMap=registryNodeSelector
           allowEmptyValue=true
-          addActionLabel="clusterIstioPage.nodeSelector.addSelectorLabel"
+          addActionLabel="clusterPage.nodeSelector.addSelectorLabel"
         }}
       </div>
     </div>
@@ -670,13 +670,13 @@
       <div class="row">
         <div class="col span-12">
           <label class="acc-label">
-            {{t "clusterIstioPage.nodeSelector.helpText" component="Clair"}}
+            {{t "clusterPage.nodeSelector.helpText" component="Clair"}}
           </label>
           {{form-key-value
             changedArray=(action (mut clairNodeSelectors))
             initialMap=clairNodeSelector
             allowEmptyValue=true
-            addActionLabel="clusterIstioPage.nodeSelector.addSelectorLabel"
+            addActionLabel="clusterPage.nodeSelector.addSelectorLabel"
           }}
         </div>
       </div>
@@ -717,13 +717,13 @@
       <div class="row">
         <div class="col span-12">
           <label class="acc-label">
-            {{t "clusterIstioPage.nodeSelector.helpText" component=(t 'globalRegistryPage.notaryAndSigner')}}
+            {{t "clusterPage.nodeSelector.helpText" component=(t 'globalRegistryPage.notaryAndSigner')}}
           </label>
           {{form-key-value
             changedArray=(action (mut notaryNodeSelectors))
             initialMap=notaryNodeSelector
             allowEmptyValue=true
-            addActionLabel="clusterIstioPage.nodeSelector.addSelectorLabel"
+            addActionLabel="clusterPage.nodeSelector.addSelectorLabel"
           }}
         </div>
       </div>

@@ -7,7 +7,6 @@ import { parseSi } from 'shared/utils/parse-unit';
 import C from 'ui/utils/constants';
 import { hasMany, reference } from '@rancher/ember-api-store/utils/denormalize';
 import StateCounts from 'ui/mixins/state-counts';
-const ISTIO_INJECTION = 'istio-injection'
 const ENABLED = 'enabled';
 
 export function convertResourceQuota(key, value) {
@@ -87,7 +86,7 @@ var Namespace = Resource.extend(StateCounts, {
     // @TODO-2.0 this.defineStateCounts('services', 'serviceStates', 'serviceCountSort');
   },
 
-  availableActions: computed('projectId', 'actionLinks.@each.move', 'scope.currentCluster.istioEnabled', 'scope.currentCluster.systemProject', 'autoInjectionEnabled', function() {
+  availableActions: computed('projectId', 'actionLinks.@each.move', 'scope.currentCluster.systemProject', function() {
     let aa = this.actionLinks || {};
 
     let out = [
@@ -96,20 +95,6 @@ var Namespace = Resource.extend(StateCounts, {
         icon:     'icon icon-fork',
         action:   'move',
         enabled:  !!aa.move,
-        bulkable: true
-      },
-      {
-        label:    'action.enableAutoInject',
-        icon:     'icon icon-plus-circle',
-        action:   'enableAutoInject',
-        enabled:  get(this, 'scope.currentCluster.istioEnabled') && !!get(this, 'scope.currentCluster.systemProject') && !this.autoInjectionEnabled,
-        bulkable: true
-      },
-      {
-        label:    'action.disableAutoInject',
-        icon:     'icon icon-minus-circle',
-        action:   'disableAutoInject',
-        enabled:  get(this, 'scope.currentCluster.istioEnabled') && !!get(this, 'scope.currentCluster.systemProject') && this.autoInjectionEnabled,
         bulkable: true
       },
       { divider: true },
@@ -182,12 +167,6 @@ var Namespace = Resource.extend(StateCounts, {
     return normalizeTags(this.tags);
   }),
 
-  autoInjectionEnabled: computed('labels', function() {
-    const labels = this.labels
-
-    return labels && labels[ISTIO_INJECTION] === ENABLED;
-  }),
-
   validateResourceQuota(originLimit) {
     const intl = this.intl;
     let errors = [];
@@ -242,14 +221,6 @@ var Namespace = Resource.extend(StateCounts, {
     move() {
       this.modalService.toggleModal('modal-move-namespace', this);
     },
-
-    enableAutoInject() {
-      this.autoInjectToggle()
-    },
-
-    disableAutoInject() {
-      this.autoInjectToggle()
-    },
   },
 
   hasTags(want) {
@@ -268,19 +239,6 @@ var Namespace = Resource.extend(StateCounts, {
     }
 
     return true;
-  },
-
-  autoInjectToggle() {
-    const labels = this.labels
-    const clone = this.clone()
-
-    if (this.autoInjectionEnabled) {
-      delete labels['istio-injection']
-    } else {
-      labels[ISTIO_INJECTION] = ENABLED;
-    }
-    set(clone, 'labels', labels)
-    clone.save().catch((err) => this.growl.fromError('Error:', err))
   },
 });
 

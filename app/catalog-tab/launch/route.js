@@ -78,7 +78,7 @@ export default Route.extend({
       var catalogTemplateUrl = null;
       const allApps          = get(results, 'apps');
 
-      if (app && params.appId && (!params.upgrade || params.istio)) {
+      if (app && params.appId && (!params.upgrade)) {
         def = get(app, 'externalIdInfo.version');
       }
 
@@ -143,10 +143,6 @@ export default Route.extend({
           ( { namespace, newAppName } = this.newNamespace(existingNamespace, namespaceName));
         }
 
-        if ( params.istio ) {
-          newAppName = '';
-        }
-
         let verArr = Object.keys(links).filter((key) => !!links[key])
           .map((key) => ({
             version:     key,
@@ -192,10 +188,6 @@ export default Route.extend({
           }
         }
 
-        if ( !params.namespaceId && params.istio ) {
-          namespace = null;
-        }
-
         return EmberObject.create({
           catalogTemplate,
           namespace,
@@ -228,7 +220,6 @@ export default Route.extend({
         namespaceId: null,
         template:    null,
         upgrade:     null,
-        istio:       false,
       });
     }
   },

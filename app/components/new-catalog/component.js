@@ -39,7 +39,6 @@ export default Component.extend(NewOrEdit, CatalogApp, ChildHook, LazyIcon, {
   customizeNamespace:       false,
   decoding:                 false,
   forceUpgrade:             false,
-  istio:                    false,
   titleAdd:                 'newCatalog.titleAdd',
   titleUpgrade:             'newCatalog.titleUpgrade',
   selectVersionAdd:         'newCatalog.selectVersionAdd',
@@ -93,11 +92,7 @@ export default Component.extend(NewOrEdit, CatalogApp, ChildHook, LazyIcon, {
     },
 
     cancel() {
-      if ( this.istio ) {
-        const projectId = get(this, 'scope.currentProject.id');
-
-        this.router.transitionTo('authenticated.project.istio.project-istio.rules', projectId);
-      } else if ( this.cancel ) {
+      if ( this.cancel ) {
         this.cancel();
       }
     },
@@ -399,11 +394,7 @@ export default Component.extend(NewOrEdit, CatalogApp, ChildHook, LazyIcon, {
   doneSaving() {
     var projectId = get(this, 'scope.currentProject.id');
 
-    if ( this.istio ) {
-      return this.router.transitionTo('authenticated.project.istio.project-istio.rules', projectId);
-    } else {
-      return this.router.transitionTo('apps-tab.index', projectId);
-    }
+    return this.router.transitionTo('apps-tab.index', projectId);
   },
 
   shouldFallBackToYaml() {

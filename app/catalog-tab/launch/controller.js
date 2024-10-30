@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
-  queryParams: ['istio', 'appId', 'appName', 'stackId', 'upgrade', 'catalog', 'namespaceId', 'clone'],
+  queryParams: ['appId', 'appName', 'stackId', 'upgrade', 'catalog', 'namespaceId', 'clone'],
   stackId:     null,
   upgrade:     null,
   showName:    true,
@@ -9,7 +9,6 @@ export default Controller.extend({
   namespaceId: null,
   appId:       null,
   appName:     null,
-  istio:       false,
 
   parentRoute: 'catalog-tab',
 

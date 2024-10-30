@@ -5,16 +5,7 @@
     <img style="width: 75%;" src="{{app.baseAssets}}assets/images/resources/{{resource}}.svg"/>
     {{#if showNew}}
       <br/>
-      {{#if istio}}
-        <a
-          class="btn bg-link icon-btn mt-50 link"
-          href="{{href-to newRoute scope.currentProject.id (query-params istio=true)}}"
-          disabled={{disabled}}
-        >
-          <i class="icon icon-plus text-small"></i>
-          <span>{{t newTranslationKey}}</span>
-        </a>
-      {{else if (and (eq ctx "projectId") scope.currentProject.id)}}
+      {{#if (and (eq ctx "projectId") scope.currentProject.id)}}
         <a class="btn bg-link icon-btn mt-50 link" 
           href="{{href-to newRoute scope.currentProject.id}}"
           disabled={{disabled}}

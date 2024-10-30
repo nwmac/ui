@@ -7,10 +7,8 @@ import { getOwner } from '@ember/application';
 export default Controller.extend({
   application:       controller(),
   catalogController: controller('catalog-tab'),
-  queryParams:       ['istio'],
   parentRoute:       'catalog-tab',
   launchRoute:       'catalog-tab.launch',
-  istio:             false,
 
   category:          alias('catalogController.category'),
   actions:           {
@@ -23,11 +21,7 @@ export default Controller.extend({
         return false;
       }
 
-      if ( this.istio ) {
-        this.transitionToRoute(this.launchRoute, id, { queryParams: { istio: true,  } });
-      } else {
-        this.transitionToRoute(this.launchRoute, id);
-      }
+      this.transitionToRoute(this.launchRoute, id);
     },
 
     refresh() {

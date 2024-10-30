@@ -38,14 +38,4 @@ export default Resource.extend({
     return out.sort();
   }),
 
-  actions:      {
-    edit() {
-      this.router.transitionTo('authenticated.project.istio.gateway.detail.edit', this.id);
-    },
-
-    clone() {
-      this.router.transitionTo('authenticated.project.istio.gateway.new', this.projectId, { queryParams: { id: this.id } });
-    },
-  },
-
 });

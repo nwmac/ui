@@ -6,8 +6,7 @@ export default Route.extend({
     if (isExiting) {
       setProperties(controller, {
         search: '',
-        istio:  false,
-      })
+      });
     }
   },
 });

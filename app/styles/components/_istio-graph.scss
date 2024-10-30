@@ -7,31 +7,3 @@
     opacity: 0;
   }
 }
-
-#kiali-iframe {
-  position: absolute;
-
-  top: -75px;
-  left: -210px;
-  width: calc(100% + 210px);
-  height: calc(110vh);
-  border: none;
-}
-
-.powered-by-kiali {
-  right: 10px;
-  position: absolute;
-  bottom: 20px;
-}
-
-.istio-autoinjection {
-  display: inline-block;
-  vertical-align: middle;
-  margin-top: -3px;
-}
-
-.istio-graph {
-  .namespace-select {
-    width: 200px;
-  }
-}

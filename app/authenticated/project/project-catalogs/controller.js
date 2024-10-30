@@ -7,8 +7,6 @@ export default Controller.extend({
   scope:           service(),
   modalService:    service('modal'),
   router:          service(),
-  queryParams:     ['istio'],
-  istio:           false,
   globalCatalogs:  alias('model.globalCatalogs'),
   filtered:        union('globalCatalogs', 'clusterCatalogs', 'projectCatalogs'),
 
@@ -28,11 +26,7 @@ export default Controller.extend({
     },
 
     goBack() {
-      if ( this.istio ) {
-        this.router.transitionTo('authenticated.project.istio.project-istio.rules');
-      } else {
-        this.router.transitionTo('apps-tab');
-      }
+      this.router.transitionTo('apps-tab');
     }
   },
 

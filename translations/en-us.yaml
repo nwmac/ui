@@ -63,7 +63,6 @@ generic:
   import: Import
   internal: Internal
   ipAddress: IP Address
-  istioRule: Traffic Rule
   key: Key
   limit: Limit
   limits: Limits
@@ -139,7 +138,6 @@ generic:
   linux: Linux
   windows: Windows
   host: Host
-  istioHostPlaceholder: Select or input a host
   cpu: CPU
   memory: Memory
   noData: No Data
@@ -996,8 +994,6 @@ banner:
   alerting: Alerts in Cluster Manager has been deprecated as of Rancher v2.5.0 - check out the <a href="{docsBase}/faq/deprecated-features-25x" target="_blank">FAQ</a>. Check out the updated alerts integration in Rancher <a href="{dashboardLink}/monitoring">monitoring</a> in Cluster Tools.
   cis: CIS Scanning in Cluster Manager has been deprecated as of Rancher 2.5.0 - check out the <a href="{docsBase}/faq/deprecated-features-25x" target="_blank">FAQ</a>. For CIS Scanning with benchmark version 1.5 and above, see the updated <a href="{dashboardLink}/cis">CIS scanning</a> functionality in Cluster Tools.
   cis21: CIS Scanning (v1) in Kubernetes 1.21+ is no longer supported.
-  istio: Istio v1.5 has been declared end of life by the upstream project and is now deprecated as of Rancher 2.5.0 - check out the <a href="{docsBase}/faq/deprecated-features-25x" target="_blank">FAQ</a>. Checkout the newer versions of <a href="{dashboardLink}/istio">Istio</a> integration in the new Cluster Tools.
-  istio21: Istio (v1) in Kubernetes 1.21+ is no longer supported.
   logging: Logging in Cluster Manager has been deprecated as of Rancher v2.5.0 - check out the <a href="{docsBase}/faq/deprecated-features-25x" target="_blank">FAQ</a>. Check out the updated version of <a href="{dashboardLink}/logging">logging</a> in Cluster Tools.
   logging21: Logging (v1) in Kubernetes 1.21+ is no longer supported.
   multiclusterapp: Multi-Cluster Apps have been deprecated as of Rancher v2.5.0 - check out the <a href="{docsBase}/faq/deprecated-features-25x" target="_blank">FAQ</a>. Check out the new <a href="{dashboardBase}c/local/fleet">Rancher Continuous Delivery</a> capability to deploy apps across multiple clusters through GitOps.
@@ -1019,8 +1015,6 @@ banner:
   configmapsDeprecated: Project-scoped Config Maps have been deprecated as of Rancher v2.9.0 and will be removed in a future release - check out the <a href="https://github.com/rancher/rancher/releases/tag/v2.9.0" target="_blank">Release Notes</a>.
 
 catalogPage:
-  istio:
-    header: Traffic Rules Catalog
   index:
     header: Catalog
     refreshBtn: Refresh
@@ -1133,107 +1127,6 @@ cloudCredentialsPage:
 clusterCatalogPage:
   header: Catalogs
 
-clusterIstioPage:
-  header: Istio
-  enabled: "Istio is enabled. In order to leverage Istio, you will need to enable Istio sidecar auto injection for each namespace. If you enable it on an existing namespace, any existing workloads will need to be re-deployed to leverage the sidecar auto injection."
-  disabled: "Istio is not enabled yet. Please click Enable button to enable it."
-  notReady: Installing Istio into the system project of current cluster...
-  confirmDisable: "Are you sure?  Click again to disable Istio"
-  monitoringNotDeployed: "Monitoring is still deploying. Please wait for monitoring to finish deploying before enabling Istio to ensure there are enough resources in the cluster."
-  disable: Disable
-  enableActionLabel: Enable
-  version: Istio Version
-  customAnswers:
-    title: Custom Answers
-    detail: Configure custom answers.
-    warning: "Custom Answers are an advanced configuration option. {appName} pre-configures custom answers to ensure that specific <a href='https://istio.io/latest/docs/setup/additional-setup/cni/#prerequisites' target='_blank' rel='nofollow noreferrer'>prerequisites</a> are met for the default Istio configuration. Adding or removing custom answers may result in a non-functional Istio configuration. Please ensure you fully understand the changes you are making before you save."
-  links:
-    kiali:
-      label: Kiali UI
-    jaeger:
-      label: Jaeger UI
-    grafana:
-      label: Grafana UI
-    prometheus:
-      label: Prometheus UI
-  config:
-    header:
-      grafana: Grafana
-      gateway: Ingress Gateway
-      pilot: Pilot
-      prometheus: Prometheus
-      mixer: Mixer
-      tracing: Tracing
-    tracingEnabled:
-      label: Enable Tracing
-    grafanaEnabled:
-      label: Enable Grafana
-    grafanaPersistenceEnabled:
-      label: Enable Persistent Storage for Grafana
-    mtlsEnabled:
-      label: Service to service mutual TLS
-    gatewayEnabled:
-      label: Enable Ingress Gateway
-    gatewayType:
-      label: Service Type of Ingress Gateway
-    http2Port:
-      label: Http2 Port
-    httpsPort:
-      label: Https Port
-    loadBalancerIP:
-      label: Load Balancer IP
-      placeholder: e.g. 192.0.0.1
-    prometheusRetention:
-      label: Retention for Prometheus
-      placeholder: e.g. 6h
-    traceSampling:
-      label: Trace sampling Percentage
-      placeholder: e.g. 1
-    mixerPolicyEnabled:
-      label: Enable Mixer Policy
-  nodeSelector:
-    addSelectorLabel: Add Selector
-    helpText: Select the nodes where {component} workloads will be scheduled to
-  insufficientSize:
-    total:
-      cpu: Please make sure you have at least {minCpu} milli CPUs available to {action} Istio.
-      memory: Please make sure you have at least {minMemory} MiB of memory available to {action} Istio.
-      all: Please make sure you have at least {minCpu} milli CPUs and {minMemory} MiB of memory available to {action} Istio.
-    workload:
-      cpu: Please make sure you have at least one node with {cpu} milli CPUs available to deploy {component} workload.
-      memory: Please make sure you have at least one node with {memory} MiB of memory available to deploy {component} workload.
-      all: Please make sure you have at least one node with {cpu} milli CPUs and {memory} MiB of memory available to deploy {component} workload.
-    selectors:
-      cpu: Please make sure you have at least one node matches node selectors with {cpu} milli CPUs available to enable {component} workload.
-      memory: Please make sure you have at least one node matches node selectors with {memory} MiB of memory available to enable {component} workload.
-      all: Please make sure you have at least one node matches node selectors with {cpu} milli CPUs and {memory} MiB of memory available to enable {component} workload.
-      unsupported: 'Node selector with value "true", "false" or number is not supported'
-  telemetryAndPolicy: Telemetry And Policy
-  existingClaim:
-    label: 'Existing Claim for {component}'
-  members:
-    title: Group Access
-    detail: Control which groups have access to Kiali and Jaeger UI.
-  pilot:
-    title: Pilot
-    detail: Traffic management configuration.
-  mixer:
-    title: Mixer
-    detail: General purpose policy and telemetry configuration.
-  tracing:
-    title: Tracing
-    detail: Configure tracking requests.
-  ingress:
-    title: Ingress Gateway
-    detail: Monitoring and route rules configuration.
-  allowSystemGroup:
-    'true': Allow <b>all</b> authenticated members to access Kiali and Jaeger UI.
-    'false': Allow cluster owner and <b>specified</b> groups to access Kiali and Jaeger UI.
-  goToMonitoring: 'Monitoring needs to be on for istio to work. If you would like to modify the values please go to the <a href="/c/{clusterId}/monitoring/cluster-setting">Monitoring page</a> and save.'
-  upgradeMonitoring: 'Before enabling Istio, you need to upgrade cluster monitoring to version 0.0.4 or above first. Go <a href="/c/{clusterId}/monitoring/cluster-setting">here</a> to upgrade cluster monitoring.'
-  enableMonitoring:
-    label: Enable Monitoring
-
 certificatesPage:
   cn: Domain Name
   expiresDate: Expires
@@ -1317,6 +1210,21 @@ clusterPage:
   annotationsDetail: Configure labels and annotations for the cluster.
   removeMemberNote: 'Note: Removing User will not remove their project permissions'
   internal: '<b>Caution:</b> This is the cluster that {appName} is using as a data store.  Only administrators should be given write access to this cluster.<br>Users with write access to this cluster can use it to grant themselves access to any other cluster managed by this installation.'
+  insufficientSize:
+    workload:
+      cpu: Please make sure you have at least one node with {cpu} milli CPUs available to deploy {component} workload.
+      memory: Please make sure you have at least one node with {memory} MiB of memory available to deploy {component} workload.
+      all: Please make sure you have at least one node with {cpu} milli CPUs and {memory} MiB of memory available to deploy {component} workload.
+    selectors:
+      cpu: Please make sure you have at least one node matches node selectors with {cpu} milli CPUs available to enable {component} workload.
+      memory: Please make sure you have at least one node matches node selectors with {memory} MiB of memory available to enable {component} workload.
+      all: Please make sure you have at least one node matches node selectors with {cpu} milli CPUs and {memory} MiB of memory available to enable {component} workload.
+      unsupported: 'Node selector with value "true", "false" or number is not supported'
+  existingClaim:
+    label: 'Existing Claim for {component}'
+  nodeSelector:
+    addSelectorLabel: Add Selector
+    helpText: Select the nodes where {component} workloads will be scheduled to
 
 projectsListNamespacePage:
   header: Namespaces
@@ -1663,8 +1571,6 @@ monitoringPage:
     title: V1 Project Monitoring Configuration
     disabled: Monitoring is disabled in the current project.
     toDisable: Monitoring is enabled. Click the Save button below will disable monitoring in current project.
-  errors:
-    disableIstioFirst: 'Before disable cluster monitoring, you need to disable Istio first.'
 
 metricsAction:
   description: Expand to see live metrics
@@ -1721,16 +1627,6 @@ metrics:
   fluentd-output-record-number: Fluentd Output Rate
   ingresscontroller-nginx-connection: Ingress Controller Connections
   ingresscontroller-request-process-time: Ingress Controller Request Process Time
-  istio-4xxs-top10: 4xx Request Count by Service
-  istio-4xxs: Project 4xx Request Count
-  istio-5xxs-top10: 5xx Request Count by Service
-  istio-5xxs: Project 5xx Request Count
-  istio-global-request-volume-top10: Request Volume by Service
-  istio-global-request-volume: Project Request Volume
-  istio-global-success-rate: Project Success Rate
-  istio-request-duration-p50-top10: P50 Request Latency by Service
-  istio-request-duration-p90-top10: P90 Request Latency by Service
-  istio-request-duration-p99-top10: P99 Request Latency by Service
   node-cpu-load: Load Average
   node-cpu-usage: CPU Utilization
   node-disk-io: Disk I/O
@@ -2207,7 +2103,6 @@ globalDnsPage:
       noAccessProvider: You do not have access to the provider
       noAccessProject: You do not have access to the target project
     projectHelp: "To finalize configuring this Global DNS entry, you must add the following annotation ( <code>rancher.io/globalDNS.hostname</code> ) on the ingress in your application or in your project. The value of this annotation should be the hostname used in the routing rules of your ingress and match the FQDN of this Global DNS entry."
-    istioHelp: "To make catalog template visable in Traffic Rules Catalog, you must add the following label ( <code>io.rancher.istio=true</code> ) in <code>questions.yaml</code> file of your catalog template."
     table:
       name: Name
       fqdn: FQDN
@@ -2449,30 +2344,6 @@ hostsPage:
         body:
           noData: This host does not have any volumes
 
-istio:
-  refreshGraph: Refresh Graph
-  noData: Not enough data for graph
-  period: Period
-  table:
-    template: Template
-    host: Host
-  kiali: Powered by Kiali
-  trafficMonitoring:
-    duration: Last {time}
-  nav:
-    graph: Traffic Graph
-    metrics: Traffic Metrics
-    rules: Traffic Rules
-    destinationRules:
-      label: Destination Rules
-      add: Add Destination Rule
-    virtualServices:
-      label: Virtual Services
-      add: Add Virtual Service
-    gateways:
-      label: Gateways
-      add: Add Gateway
-
 k8sImport:
   header: Import Existing Kubernetes
   name:
@@ -2540,12 +2411,6 @@ machinePage:
 notFoundPage:
   header: "The page you were looking for doesn't exist!"
   linkTo: Go Home
-
-projectIstioPage:
-  info:
-    notEnabled: 'Istio is not enabled yet. Go <a href="/c/{clusterId}/istio/cluster-setting">here</a> to enable it.'
-    notOwner: "Istio is not enabled yet. Please contact your cluster administrator."
-    noPermission: "You do not have permission to configure Istio."
 
 registriesPage:
   index:
@@ -5060,8 +4925,6 @@ cruDestinationRule:
       label: TLS Mode
       none:
         label: NONE
-      istio:
-        label: Istio Mutual - Secure connections to the upstream using mutual TLS by Istio
       disable:
         label: Disable - Do not setup a TLS connection to the upstream endpoint
       simple:

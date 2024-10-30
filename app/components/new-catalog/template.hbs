@@ -6,11 +6,6 @@
         <span style="font-weight: normal">
           {{catalogApp.displayName}}
         </span>
-      {{else if istio}}
-        {{#link-to parentRoute (query-params istio=true)}}
-          {{t "newCatalog.istio.catalog"}}
-          {{templateResource.displayName}}
-        {{/link-to}}
       {{else}}
         {{#link-to parentRoute}}
           {{t "newCatalog.catalog"}}
@@ -55,29 +50,26 @@
 </section>
 
 {{#accordion-list as |al expandFn|}}
-  {{#unless istio}}
-    {{#accordion-list-item
-       title=(t "newCatalog.appInfo")
-       detail=(t "newCatalog.appInfoDetail")
-       expandAll=al.expandAll
-       expand=(action expandFn)
-       expanded=detailExpanded
-    }}
-      <div class="row">
-        {{#if readmeContent}}
-          <div class="col span-12" style="overflow-y: auto; max-height: 500px;">
-            {{marked-down markdown=readmeContent}}
-          </div>
-        {{else}}
-          <h2 class="mb-10">
-            {{t (if editing titleUpgrade titleAdd) name=templateResource.name}}
-          </h2>
-          <p>{{templateResource.description}}</p>
-        {{/if}}
-      </div>
-    {{/accordion-list-item}}
-  {{/unless}}
-
+  {{#accordion-list-item
+      title=(t "newCatalog.appInfo")
+      detail=(t "newCatalog.appInfoDetail")
+      expandAll=al.expandAll
+      expand=(action expandFn)
+      expanded=detailExpanded
+  }}
+    <div class="row">
+      {{#if readmeContent}}
+        <div class="col span-12" style="overflow-y: auto; max-height: 500px;">
+          {{marked-down markdown=readmeContent}}
+        </div>
+      {{else}}
+        <h2 class="mb-10">
+          {{t (if editing titleUpgrade titleAdd) name=templateResource.name}}
+        </h2>
+        <p>{{templateResource.description}}</p>
+      {{/if}}
+    </div>
+  {{/accordion-list-item}}
 
   {{#accordion-list-item
      title=(t (if selectedTemplateModel.questions "inputAnswers.config" "newCatalog.helm.label"))
@@ -292,7 +284,7 @@
 
   <div class="footer-actions">
     {{save-cancel
-      createLabel=(if editing saveUpgrade (if istio "newCatalog.istio.saveNew" saveNew))
+      createLabel=(if editing saveUpgrade saveNew)
       save=(action "save")
       cancel=(action "cancel")
     }}

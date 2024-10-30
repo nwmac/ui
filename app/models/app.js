@@ -41,16 +41,6 @@ const App = Resource.extend(StateCounts, EndpointPorts, {
     return false;
   }),
 
-  isIstio: computed('catalogTemplate.isIstio', function() {
-    let { catalogTemplate } = this;
-
-    if (catalogTemplate) {
-      return get(this, 'catalogTemplate.isIstio')
-    } else {
-      return false;
-    }
-  }),
-
   pods: computed('name', 'namespace.pods.@each.{state,workloadId}', 'workloads.@each.workloadLabels', function() {
     return (get(this, 'namespace.pods') || []).filter((item) => {
       if ( item.state === 'removed' ) {
@@ -178,7 +168,7 @@ const App = Resource.extend(StateCounts, EndpointPorts, {
     return !isEmpty(this.catalogTemplate) && !!( this.actionLinks || {} ).rollback;
   }),
 
-  availableActions: computed('actionLinks.{rollback,upgrade}', 'canRollback', 'canUpgrade', 'catalogTemplate', 'isIstio', function() {
+  availableActions: computed('actionLinks.{rollback,upgrade}', 'canRollback', 'canUpgrade', 'catalogTemplate', function() {
     return [
       {
         label:   'action.upgrade',
@@ -192,25 +182,10 @@ const App = Resource.extend(StateCounts, EndpointPorts, {
         action:  'rollback',
         enabled: this.canRollback
       },
-      {
-        label:   'action.viewYaml',
-        icon:    'icon icon-file',
-        action:  'viewYaml',
-        enabled: !!this.isIstio
-      },
     ];
   }),
 
   actions: {
-    viewYaml(){
-      this.modalService.toggleModal('modal-istio-yaml', {
-        escToClose: true,
-        name:       this.displayName,
-        namespace:  get(this, 'namespace.id'),
-        appId:      this.name,
-      });
-    },
-
     upgrade() {
       const templateId    = get(this, 'externalIdInfo.templateId');
       const catalogId     = get(this, 'externalIdInfo.catalog');
@@ -224,7 +199,6 @@ const App = Resource.extend(StateCounts, EndpointPorts, {
           catalog:      catalogId,
           namespaceId:  this.targetNamespace,
           upgrade:      latestVersion,
-          istio:        this.isIstio,
           currentVersion
         }
       });

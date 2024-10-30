@@ -9,7 +9,6 @@ import {
 } from '@ember/object';
 import { next } from '@ember/runloop';
 
-const ISTIO_INJECTION = 'istio-injection'
 const ENABLED = 'enabled';
 
 export default Component.extend(ModalBase, NewOrEdit, {
@@ -24,7 +23,6 @@ export default Component.extend(ModalBase, NewOrEdit, {
   allProjects:             null,
   tags:                    null,
   beforeSaveModel:         null,
-  initAutoInjectionStatus: null,
 
   originalModel: alias('modalService.modalOpts'),
   init() {
@@ -42,15 +40,6 @@ export default Component.extend(ModalBase, NewOrEdit, {
       allProjects:   this.globalStore.all('project')
         .filterBy('clusterId', get(this, 'scope.currentCluster.id')),
     })
-
-    const labels = get(this, 'primaryResource.labels')
-
-    const enabled = labels && labels[ISTIO_INJECTION] === ENABLED;
-
-    setProperties(this, {
-      istioInjection:          enabled,
-      initAutoInjectionStatus: enabled
-    });
   },
 
   actions: {
@@ -82,10 +71,6 @@ export default Component.extend(ModalBase, NewOrEdit, {
       });
 
       set(this, 'primaryResource.labels', out);
-    },
-
-    toggleAutoInject() {
-      set(this, 'istioInjection', !this.istioInjection);
     },
   },
 
@@ -145,14 +130,6 @@ export default Component.extend(ModalBase, NewOrEdit, {
 
   willSave() {
     const labels = { ...get(this, 'primaryResource.labels') };
-
-    if ( get(this, 'scope.currentCluster.istioEnabled') ) {
-      if ( this.istioInjection ) {
-        labels[ISTIO_INJECTION] = ENABLED;
-      } else {
-        delete labels[ISTIO_INJECTION];
-      }
-    }
 
     setProperties(this, {
       'beforeSaveModel':        this.originalModel.clone(),
